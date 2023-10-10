@@ -35,8 +35,11 @@ const outputActiveValidators = async () => {
     );
 
     const activeValidators = currentValidators.filter(validator =>
-      BigInt(validator.stake) >= pCurrent
+      BigInt(validator.stake) >= pCurrent &&
+      validator.num_produced_chunks > 1 &&
+      validator.num_expected_chunks > 1
     );
+
 
     const config = await getConfig();
     const keyStore = new nearApi.keyStores.InMemoryKeyStore();
